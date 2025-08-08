@@ -12,11 +12,4 @@ services:
         value: xforwarded
       - key: KC_HTTP_ENABLED
         value: "true"
-    startCommand: >
-      /opt/keycloak/bin/kc.sh start
-      --hostname-url=${KC_HOSTNAME_URL}
-      --hostname-admin-url=${KC_HOSTNAME_ADMIN_URL}
-      --proxy-headers=${KC_PROXY_HEADERS}
-      --http-enabled=${KC_HTTP_ENABLED}
-      --http-port=${PORT}
-      --http-host=0.0.0.0
+
