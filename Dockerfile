@@ -4,9 +4,11 @@ FROM quay.io/keycloak/keycloak:24.0.4
 ENV KEYCLOAK_ADMIN=admin
 ENV KEYCLOAK_ADMIN_PASSWORD=admin
 
-# Кладём наш старт-скрипт
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Render задаёт PORT в рантайме; оставим дефолт на локалке
+ENV PORT=8080
 
-# ВАЖНО: переопределяем ENTRYPOINT и явно запускаем наш скрипт через bash
-ENTRYPOINT ["/bin/bash", "-lc", "/start.sh"]
+# Кладём старт-скрипт и сразу даём права (без RUN chmod)
+COPY --chmod=0755 start.sh /opt/keycloak/start.sh
+
+# Жёстко переопределяем ENTRYPOINT, чтобы не мешал базовый
+ENTRYPOINT ["/bin/bash", "-lc", "/opt/keycloak/start.sh"]
